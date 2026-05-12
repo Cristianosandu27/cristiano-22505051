@@ -165,15 +165,28 @@ class UnidadeCurricular(models.Model):
 class MakingOf(models.Model):
     titulo = models.CharField(max_length=150)
     entidade_alvo = models.CharField(max_length=150)
-    descricao_processo = models.TextField()
-    decisoes_modelacao = models.TextField()
     erros_encontrados = models.TextField()
     correcoes_realizadas = models.TextField()
     justificacao_opcoes = models.TextField()
     uso_ia = models.TextField()
     contributo_ia = models.TextField()
-    foto_der = models.URLField(blank=True)
+    foto_der = models.ImageField(upload_to='makingof/der/', null=True, blank=True)
     data_registo = models.DateField()
 
     def __str__(self):
         return self.titulo
+
+
+
+class FotoMakingOf(models.Model):
+    making_of = models.ForeignKey(
+        MakingOf,
+        on_delete=models.CASCADE,
+        related_name='fotos'
+    )
+    imagem = models.ImageField(upload_to='makingof/fotos/')
+
+    def __str__(self):
+        return f"Foto de {self.making_of.titulo}"
+
+       
