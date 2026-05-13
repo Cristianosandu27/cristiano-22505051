@@ -1,0 +1,16 @@
+<h1>Login por link mágico</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <button type="submit">Enviar link mágico</button>
+</form>
+
+<p>{{ mensagem }}</p>
+
+<a href="{% url 'login' %}">
+    Voltar ao login
+</a>

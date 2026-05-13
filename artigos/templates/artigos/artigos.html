@@ -1,0 +1,53 @@
+<h1>Artigos</h1>
+
+{% if user.is_authenticated %}
+    <p>
+        <a href="{% url 'artigo_criar' %}">
+            Criar artigo
+        </a>
+    </p>
+{% endif %}
+
+{% for artigo in artigos %}
+
+    <hr>
+
+    <h2>{{ artigo.titulo }}</h2>
+
+    <p>{{ artigo.texto }}</p>
+
+    {% if artigo.fotografia %}
+        <img
+            src="{{ artigo.fotografia.url }}"
+            width="300"
+        >
+    {% endif %}
+
+    {% if artigo.link_externo %}
+        <p>
+            <a
+                href="{{ artigo.link_externo }}"
+                target="_blank"
+            >
+                Link externo
+            </a>
+        </p>
+    {% endif %}
+
+    <p>
+        Autor:
+        {{ artigo.autor.username }}
+    </p>
+
+    <p>
+        Data:
+        {{ artigo.data_criacao }}
+    </p>
+
+{% empty %}
+
+    <p>
+        Ainda não existem artigos.
+    </p>
+
+{% endfor %}
