@@ -6,3 +6,5 @@ __pycache__/
 .Python
 .vscode/
 .DS_Store
+.env
+db.sqlite3
