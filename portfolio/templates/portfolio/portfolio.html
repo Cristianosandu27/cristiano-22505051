@@ -1,0 +1,90 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+
+<h1>Portfolio</h1>
+
+<section class="course-card">
+    <h2>Licenciaturas</h2>
+    {% for l in licenciaturas %}
+        <p><strong>{{ l.nome }}</strong> — {{ l.sigla }} | {{ l.grau }}</p>
+    {% empty %}
+        <p>Sem licenciaturas.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Docentes</h2>
+    {% for d in docentes %}
+        <p><strong>{{ d.nome }}</strong> — {{ d.area_especializacao }} | {{ d.email }}</p>
+    {% empty %}
+        <p>Sem docentes.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Projetos</h2>
+    {% for p in projetos %}
+        <h3>{{ p.titulo }}</h3>
+        <p>{{ p.descricao }}</p>
+        <p><strong>Estado:</strong> {{ p.estado }}</p>
+    {% empty %}
+        <p>Sem projetos.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Tecnologias</h2>
+    {% for t in tecnologias %}
+        <p><strong>{{ t.nome }}</strong> — {{ t.tipo }} | {{ t.nivel_proficiencia }}</p>
+    {% empty %}
+        <p>Sem tecnologias.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Competências</h2>
+    {% for c in competencias %}
+        <p><strong>{{ c.nome }}</strong> — {{ c.tipo }} | {{ c.nivel }}</p>
+    {% empty %}
+        <p>Sem competências.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Formações</h2>
+    {% for f in formacoes %}
+        <p><strong>{{ f.nome }}</strong> — {{ f.instituicao }} | {{ f.tipo }}</p>
+    {% empty %}
+        <p>Sem formações.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>TFCs</h2>
+    {% for t in tfcs %}
+        <p><strong>{{ t.titulo }}</strong> — {{ t.autor }} | {{ t.ano }}</p>
+    {% empty %}
+        <p>Sem TFCs.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Unidades Curriculares</h2>
+    {% for u in unidades %}
+        <p><strong>{{ u.nome }}</strong> — {{ u.sigla }} | {{ u.ano_curricular }}.º ano | {{ u.ects }} ECTS</p>
+    {% empty %}
+        <p>Sem unidades curriculares.</p>
+    {% endfor %}
+</section>
+
+<section class="course-card">
+    <h2>Making Of</h2>
+    {% for m in makingofs %}
+        <p><strong>{{ m.titulo }}</strong> — {{ m.entidade_alvo }} | {{ m.data_registo }}</p>
+    {% empty %}
+        <p>Sem making ofs.</p>
+    {% endfor %}
+</section>
+
+{% endblock %}
