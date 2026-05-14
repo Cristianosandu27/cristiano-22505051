@@ -1,0 +1,52 @@
+{% extends 'escola/base.html' %}
+
+{% block content %}
+
+<h1>Lista de Alunos</h1>
+
+<div class="lista-alunos">
+
+    {% for aluno in alunos %}
+
+    <div class="card">
+
+        <h2>{{ aluno.nome }}</h2>
+
+        <p>
+            <strong>Email:</strong>
+            {{ aluno.email }}
+        </p>
+
+        <p>
+            <strong>Curso:</strong>
+            {{ aluno.curso.nome }}
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<style>
+
+.lista-alunos {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+</style>
+
+{% endblock %}

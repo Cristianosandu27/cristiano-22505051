@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Professores</h1>
+
+{% for professor in professores %}
+
+    <div class="course-card">
+
+        <h2>{{ professor.nome }}</h2>
+
+        <p><strong>CURSOS</strong></p>
+
+        {% for curso in professor.cursos.all %}
+
+            <span style="
+                background:#2563eb;
+                color:white;
+                padding:8px 14px;
+                border-radius:20px;
+                display:inline-block;
+                margin-right:10px;
+            ">
+                {{ curso.nome }}
+            </span>
+
+        {% empty %}
+
+            <p>Sem cursos associados.</p>
+
+        {% endfor %}
+
+    </div>
+
+{% endfor %}
+
+{% endblock %}

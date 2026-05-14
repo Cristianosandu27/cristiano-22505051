@@ -1,37 +1,32 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Cursos</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1>Lista de Cursos</h1>
+{% block content %}
 
-    {% for curso in cursos %}
+<h1>Lista de Cursos</h1>
 
-        <div style="border:1px solid black; padding:20px; margin:20px;">
+{% for curso in cursos %}
 
-            <h2>{{ curso.nome }}</h2>
+    <div style="border:1px solid black; padding:20px; margin:20px;">
 
-            <img src="{{ curso.imagem }}" width="300">
+        <h2>{{ curso.nome }}</h2>
 
-            <p>
-                Professor:
-                {{ curso.professor.nome }}
-            </p>
+        <img src="{{ curso.imagem }}" width="300">
 
-            <h3>Alunos:</h3>
+        <p>
+            <strong>Professor:</strong>
+            {{ curso.professor.nome }}
+        </p>
 
-            <ul>
-                {% for aluno in curso.alunos.all %}
-                    <li>{{ aluno.nome }}</li>
-                {% endfor %}
-            </ul>
+        <h3>Alunos:</h3>
 
-        </div>
+        <ul>
+            {% for aluno in curso.alunos.all %}
+                <li>{{ aluno.nome }}</li>
+            {% endfor %}
+        </ul>
 
-    {% endfor %}
+    </div>
 
-</body>
-</html>
+{% endfor %}
+
+{% endblock %}
