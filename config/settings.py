@@ -11,11 +11,18 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
+# ENV
+
 env = environ.Env()
+
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
+
+# SECURITY
 
 SECRET_KEY = "django-insecure-wpq+)^5rlw-=sofv+egm4)tuz*5t6&7$j59)v9o%q=s+5)r%pt"
 
@@ -23,6 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+
+# APPS
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -41,6 +50,9 @@ INSTALLED_APPS = [
     "artigos",
 ]
 
+
+# MIDDLEWARE
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -53,7 +65,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "config.urls"
+
+
+# TEMPLATES
 
 TEMPLATES = [
     {
@@ -70,13 +86,18 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "config.wsgi.application"
 
+
+# DATABASE
 
 DATABASES = {
     "default": env.db("DATABASE_URL")
 }
 
+
+# PASSWORDS
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -94,6 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# LANGUAGE / TIMEZONE
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -103,9 +126,14 @@ USE_I18N = True
 USE_TZ = True
 
 
+# STATIC FILES
+
 STATIC_URL = "static/"
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
+
+# MEDIA FILES / CLOUDINARY
 
 cloudinary.config(
     cloud_name=env("CLOUD_NAME"),
@@ -113,13 +141,32 @@ cloudinary.config(
     api_secret=env("API_SECRET"),
 )
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUD_NAME"),
+    "API_KEY": env("API_KEY"),
+    "API_SECRET": env("API_SECRET"),
+    "PREFIX": "media",
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 MEDIA_URL = "/media/"
 
 
+# UPLOAD LIMITS
+
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
+
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 
+
+# DEFAULT PK
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
