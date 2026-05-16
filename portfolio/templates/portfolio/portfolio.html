@@ -80,8 +80,30 @@
 
 <section class="course-card">
     <h2>Making Of</h2>
+
     {% for m in makingofs %}
-        <p><strong>{{ m.titulo }}</strong> — {{ m.entidade_alvo }} | {{ m.data_registo }}</p>
+
+        <p>
+            <strong>{{ m.titulo }}</strong>
+            — {{ m.entidade_alvo }} | {{ m.data_registo }}
+        </p>
+
+        {% if m.foto_der %}
+            <img
+                src="{{ m.foto_der.url }}"
+                alt="{{ m.titulo }}"
+                style="max-width: 600px; margin: 20px 0; border-radius: 10px;"
+            >
+        {% endif %}
+
+        {% for foto in m.fotos.all %}
+            <img
+                src="{{ foto.imagem.url }}"
+                alt="{{ m.titulo }}"
+                style="max-width: 600px; margin: 20px 0; border-radius: 10px;"
+            >
+        {% endfor %}
+
     {% empty %}
         <p>Sem making ofs.</p>
     {% endfor %}
