@@ -153,7 +153,7 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
 
@@ -170,3 +170,11 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760
 # DEFAULT PK
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# AUTH REDIRECTS
+
+# AUTH REDIRECTS
+
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"

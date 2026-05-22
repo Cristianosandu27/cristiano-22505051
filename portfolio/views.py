@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from .models import (
     Licenciatura,
@@ -14,7 +15,9 @@ from .models import (
 )
 
 
+@login_required
 def portfolio_view(request):
+
     context = {
         "licenciaturas": Licenciatura.objects.all(),
         "docentes": Docente.objects.all(),

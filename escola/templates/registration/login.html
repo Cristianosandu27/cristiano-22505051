@@ -1,0 +1,23 @@
+{% extends "escola/base.html" %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+<section class="course-card">
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Entrar
+        </button>
+
+    </form>
+
+</section>
+
+{% endblock %}
