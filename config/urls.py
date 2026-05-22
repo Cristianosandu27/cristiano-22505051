@@ -8,6 +8,5 @@ urlpatterns = [
     path("portfolio/", include("portfolio.urls")),
     path("artigos/", include("artigos.urls")),
 
-    # LOGIN DJANGO
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("accounts.urls")),
 ]

@@ -1,13 +1,31 @@
+{% extends "escola/base.html" %}
+
+{% block content %}
+
 <h1>Registo</h1>
 
-<form method="POST">
-    {% csrf_token %}
+<section class="course-card">
 
-    {{ form.as_p }}
+    <form method="POST">
 
-    <button type="submit">
-        Registar
-    </button>
-</form>
+        {% csrf_token %}
 
-<a href="/accounts/login/">Já tenho conta</a>
+        {{ form.as_p }}
+
+        <button type="submit">
+            Registar
+        </button>
+
+    </form>
+
+    <hr>
+
+    <p>
+        <a href="/accounts/login/">
+            Já tenho conta
+        </a>
+    </p>
+
+</section>
+
+{% endblock %}

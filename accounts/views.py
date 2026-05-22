@@ -11,27 +11,37 @@ from django.utils.encoding import (
     force_str
 )
 
-from .forms import RegistoForm
+from django.core.mail import send_mail
+from django.conf import settings
+
+from .forms import RegisterForm
 from .tokens import magic_link_token
 
 
 def registo_view(request):
 
+    if request.user.is_authenticated:
+        return redirect("cursos")
+
     if request.method == "POST":
 
-        form = RegistoForm(request.POST)
+        form = RegisterForm(request.POST)
 
         if form.is_valid():
 
             user = form.save()
 
-            grupo = Group.objects.get(name="autores")
+            grupo, created = Group.objects.get_or_create(
+                name="gestor-portfolio"
+            )
+
             user.groups.add(grupo)
 
             return redirect("login")
 
     else:
-        form = RegistoForm()
+
+        form = RegisterForm()
 
     return render(
         request,
@@ -42,12 +52,14 @@ def registo_view(request):
 
 def login_view(request):
 
+    if request.user.is_authenticated:
+        return redirect("cursos")
+
     erro = ""
 
     if request.method == "POST":
 
         username = request.POST.get("username")
-
         password = request.POST.get("password")
 
         user = authenticate(
@@ -62,8 +74,7 @@ def login_view(request):
 
             return redirect("cursos")
 
-        else:
-            erro = "Nome de utilizador ou palavra-passe inválidos."
+        erro = "Nome de utilizador ou palavra-passe inválidos."
 
     return render(
         request,
@@ -97,17 +108,23 @@ def magic_link_request(request):
 
             token = magic_link_token.make_token(user)
 
-            link = request.build_absolute_uri(
-                reverse(
-                    "magic_link_login",
-                    kwargs={
-                        "uidb64": uid,
-                        "token": token
-                    }
-                )
+            base_url = "https://super-meme-974ppw6w6wjpcpw56-8000.app.github.dev"
+
+            link = base_url + reverse(
+                "magic_link_login",
+                kwargs={
+                    "uidb64": uid,
+                    "token": token
+                }
             )
 
-            print("LINK MÁGICO:", link)
+            send_mail(
+                "O teu link mágico",
+                f"Clica neste link para entrar: {link}",
+                settings.DEFAULT_FROM_EMAIL,
+                [email],
+                fail_silently=False,
+            )
 
         mensagem = (
             "Se existir uma conta com esse email, "
